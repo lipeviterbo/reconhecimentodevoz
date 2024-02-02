@@ -41,8 +41,9 @@
 
         recognition.onresult = function(event) {
             const comando = event.results[0][0].transcript.toLowerCase();
-            moverBolinha(comando);
             comando_dito.innerHTML=comando;
+            moverBolinha(comando);
+            
         };
 
         function moverBolinha(comando) {
