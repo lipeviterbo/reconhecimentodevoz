@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #palco {
+            width: 400px;
+            height: 400px;
+            border: 1px solid #000;
+            position: relative;
+        }
+
+        #bolinha {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+    <title>Mover Bolinha por Comando de Voz</title>
+</head>
+<body>
+    <div id="palco">
+        <div id="bolinha"></div>
+    </div>
+
+    <script>
+        const palco = document.getElementById('palco');
+        const bolinha = document.getElementById('bolinha');
+
+        window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'pt-BR';
+
+        // Solicitar permissão uma vez
+        recognition.onstart = function() {
+            recognition.stop();
+        };
+
+        recognition.onresult = function(event) {
+            const comando = event.results[0][0].transcript.toLowerCase();//passa todas as letras para minúsculo
+            console.log(comando);
+            moverBolinha(comando);
+        };
+
+        function moverBolinha(comando) {
+            const velocidade = 10;
+
+            switch(comando) {
+                case 'frente':
+                    bolinha.style.top = Math.max(0, bolinha.offsetTop - velocidade) + 'px';
+                    break;
+                case 'traz':
+                    bolinha.style.top = Math.min(palco.clientHeight - bolinha.clientHeight, bolinha.offsetTop + velocidade) + 'px';
+                    break;
+                case 'trás':
+                    bolinha.style.top = Math.min(palco.clientHeight - bolinha.clientHeight, bolinha.offsetTop + velocidade) + 'px';
+                break;
+                case 'cras':
+                    bolinha.style.top = Math.min(palco.clientHeight - bolinha.clientHeight, bolinha.offsetTop + velocidade) + 'px';
+                break;
+                case 'esquerda':
+                    bolinha.style.left = Math.max(0, bolinha.offsetLeft - velocidade) + 'px';
+                    break;
+                case 'direita':
+                    bolinha.style.left = Math.min(palco.clientWidth - bolinha.clientWidth, bolinha.offsetLeft + velocidade) + 'px';
+                    break;
+                default:
+                    console.log('Comando não reconhecido');
+            }
+        }
+
+        recognition.onerror = function(event) {
+            console.error('Erro de reconhecimento:', event.error);
+        };
+
+        recognition.onend = function() {
+            recognition.start();
+        };
+
+        recognition.start();
+    </script>
+</body>
+</html>
