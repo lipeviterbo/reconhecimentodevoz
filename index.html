@@ -25,6 +25,7 @@
     <title>Mover Bolinha por Comando de Voz</title>
 </head>
 <body>
+    <h3 id = "comando_falado"></h3>
     <div id="palco">
         <div id="bolinha"></div>
     </div>
@@ -32,7 +33,7 @@
     <script>
         const palco = document.getElementById('palco');
         const bolinha = document.getElementById('bolinha');
-
+        const comando_falado = document.getElementById("comando_falado")
         window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         const recognition = new SpeechRecognition();
         recognition.lang = 'pt-BR';
@@ -45,6 +46,7 @@
         recognition.onresult = function(event) {
             const comando = event.results[0][0].transcript.toLowerCase();//passa todas as letras para minúsculo
             console.log(comando);
+            comando_falado.innerHTML=comando;
             moverBolinha(comando);
         };
 
