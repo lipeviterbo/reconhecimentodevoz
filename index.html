@@ -37,7 +37,7 @@
         const recognition = new SpeechRecognition();
         recognition.lang = 'pt-BR';
 
-        let limiarVolume = 0.5; // Ajuste conforme necessário
+        let limiarVolume = 0.75; // Ajuste conforme necessário
 
         recognition.onstart = function() {
             recognition.stop();
