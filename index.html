@@ -37,21 +37,9 @@
         const recognition = new SpeechRecognition();
         recognition.lang = 'pt-BR';
 
-        let limiarVolume = 0.75; // Ajuste conforme necessário
-
-        recognition.onstart = function() {
-            recognition.stop();
-        };
-
         recognition.onresult = function(event) {
             const comando = event.results[0][0].transcript.toLowerCase();
-            const confianca = event.results[0][0].confidence;
-
-            if (confianca > limiarVolume) {
-                moverBolinha(comando);
-            } else {
-                console.log('Comando não reconhecido devido à baixa confiança.');
-            }
+            moverBolinha(comando);
         };
 
         function moverBolinha(comando) {
