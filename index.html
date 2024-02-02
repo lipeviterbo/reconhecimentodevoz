@@ -25,6 +25,7 @@
     <title>Mover Bolinha por Comando de Voz</title>
 </head>
 <body>
+    <h2 id="comando_dito"></h2>
     <div id="palco">
         <div id="bolinha"></div>
     </div>
@@ -32,6 +33,7 @@
     <script>
         const palco = document.getElementById('palco');
         const bolinha = document.getElementById('bolinha');
+        const comando_dito = document.getElementById('comando_dito')
 
         window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         const recognition = new SpeechRecognition();
@@ -40,6 +42,7 @@
         recognition.onresult = function(event) {
             const comando = event.results[0][0].transcript.toLowerCase();
             moverBolinha(comando);
+            comando_dito.innerHTML=comando;
         };
 
         function moverBolinha(comando) {
@@ -51,6 +54,22 @@
                     break;
                 case 'tras':
                     bolinha.style.top = Math.min(palco.clientHeight - bolinha.clientHeight, bolinha.offsetTop + velocidade) + 'px';
+                    comando_dito.innerHTML='trás';
+                    break;
+                case 'traz':
+                    bolinha.style.top = Math.min(palco.clientHeight - bolinha.clientHeight, bolinha.offsetTop + velocidade) + 'px';
+                    comando_dito.innerHTML='trás';
+                    break;
+                case 'cras':
+                    bolinha.style.top = Math.min(palco.clientHeight - bolinha.clientHeight, bolinha.offsetTop + velocidade) + 'px';
+                    comando_dito.innerHTML='trás';
+                    break;
+                case 'trás':
+                    bolinha.style.top = Math.min(palco.clientHeight - bolinha.clientHeight, bolinha.offsetTop + velocidade) + 'px';
+                    break;
+                case 'crás':
+                    bolinha.style.top = Math.min(palco.clientHeight - bolinha.clientHeight, bolinha.offsetTop + velocidade) + 'px';
+                    comando_dito.innerHTML='trás';
                     break;
                 case 'esquerda':
                     bolinha.style.left = Math.max(0, bolinha.offsetLeft - velocidade) + 'px';
@@ -59,6 +78,7 @@
                     bolinha.style.left = Math.min(palco.clientWidth - bolinha.clientWidth, bolinha.offsetLeft + velocidade) + 'px';
                     break;
                 default:
+                comando_dito.innerHTML='Comando não reconhecido';
                     console.log('Comando não reconhecido');
             }
         }
