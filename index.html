@@ -46,7 +46,7 @@
         recognition.onresult = function(event) {
             const comando = event.results[0][0].transcript.toLowerCase();//passa todas as letras para minúsculo
             console.log(comando);
-            comando_falado.innerHTML=comando;
+            comando_falado.innerHTML=comando_falado.innerHTML+comando;
             moverBolinha(comando);
         };
 
@@ -79,6 +79,7 @@
 
         recognition.onerror = function(event) {
             console.error('Erro de reconhecimento:', event.error);
+            comando_falado.innerHTML = comando_falado.innerHTML+ event.error;
         };
 
         recognition.onend = function() {
